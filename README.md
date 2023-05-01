@@ -1,4 +1,4 @@
-# Instruction
+# Instruction to create telegram bot
  
 1.Create a new public repository   in GitHub
 	
@@ -158,4 +158,5 @@
 
 ## Enjoy
 
+Link to bot https://t.me/kostyrenko_bot
 
