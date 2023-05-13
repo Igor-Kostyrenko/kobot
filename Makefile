@@ -29,7 +29,7 @@ darwin:
 	CGO_ENABLED=0 GOOS=darwin GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
 
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH} --build-arg TARGETOS=${TARGETOS}
 
 push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
