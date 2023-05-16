@@ -31,8 +31,12 @@ darwin:
 image:
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH} --build-arg TARGETOS=${TARGETOS}
 
+#push:
+#	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+	docker push gcr.io/kobot/${APP}:${VERSION}-${TARGETARCH}
 
 clean:
 	rm -rf kobot
+	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
