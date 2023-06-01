@@ -1,8 +1,10 @@
 APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=xevis
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-TARGETOS=linux #linux darwin windows
-TARGETARCH=arm64 #amd64
+TARGETOS=linux
+#linux darwin windows
+TARGETARCH=arm64
+#amd64
 
 format:
 	gofmt -s -w ./
@@ -29,14 +31,14 @@ darwin:
 	CGO_ENABLED=0 GOOS=darwin GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
 
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH} --build-arg TARGETOS=${TARGETOS}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH} --build-arg TARGETOS=${TARGETOS}
 
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 #push:
 #	docker push gcr.io/kobot/${APP}:${VERSION}-${TARGETARCH}
 
 clean:
 	rm -rf kobot
-	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}

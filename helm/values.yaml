@@ -12,8 +12,9 @@ image:
   repository: xevis
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.5-fa7aaf3-amd64"
+  tag: "v1.0.5-fa7aaf3"
   arch: amd64
+  os: linux
 
 secret:
   name: "kbot"
