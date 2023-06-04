@@ -1,3 +1,5 @@
+[![KOBOT-CICD](https://github.com/Igor-Kostyrenko/kobot/actions/workflows/cicd.yml/badge.svg?branch=main)](https://github.com/Igor-Kostyrenko/kobot/actions/workflows/cicd.yml)
+
 
 # Instruction to create telegram bot
  
