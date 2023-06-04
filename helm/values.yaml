@@ -17,9 +17,9 @@ image:
   os: linux
 
 secret:
-  name: "kbot"
+  name: "TELE_TOKEN"
   tokenKey: "token"
-  tokenName: "TELE_TOKEN"
+  tokenName: "kobot"
 securityContext:
   privilegent: true
 service:
