@@ -7,15 +7,13 @@ autoscaling:
   enabled: false
 ingress:
   enabled: false
-
 image:
   repository: xevis
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.5-fa7aaf3"
-  arch: amd64
+  tag: "v1.0.8-42f55d2"
+  arch: ""
   os: linux
-
 secret:
   name: "TELE_TOKEN"
   tokenKey: "token"
