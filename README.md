@@ -1,3 +1,5 @@
+https://github.com/Igor-Kostyrenko/kobot/actions/workflows/cicd.yml/badge.svg
+
 # Instruction to create telegram bot
  
 1.Create a new public repository   in GitHub
