@@ -1,6 +1,6 @@
- name: KOBOT-CICD
+name: KOBOT-CICD
  
- on: push
+on: push
 
 jobs:
   ci:
