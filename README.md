@@ -157,7 +157,7 @@
 
 32.Start kobot
 
-         #./kobot start
+         `#./kobot start`
 
 ## Enjoy
 
