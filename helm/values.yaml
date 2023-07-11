@@ -9,11 +9,12 @@ ingress:
   enabled: false
 image:
   repository: xevis
+  registry: "ghcr.io/Igor-Kostyrenko"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.0.8-d105346"
-  arch: ""
-  os: linux
+  arch: "amd64"
+  os: "linux"
 secret:
   name: "TELE_TOKEN"
   tokenKey: "token"

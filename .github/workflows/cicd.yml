@@ -28,8 +28,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build&Push
         env:
-          APP: "kbot"
-          REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+          APP: "kobot"
+          #REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+          REGISTRY: ${{ vars.REGISTRY }}
+          TARGETOS: ${{ vars.TARGETOS }}
+          TARGETOSARCH: ${{ vars.TARGETOSARCH }}
+          REPOSITORY: ${{ vars.REPOSITORY }}
         run: make image push
   cd:
     name: CD
