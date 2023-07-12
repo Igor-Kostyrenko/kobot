@@ -9,7 +9,7 @@ ingress:
   enabled: false
 image:
   repository: xevis
-  registry: "ghcr.io/Igor-Kostyrenko"
+  registry: ghcr.io/Igor-Kostyrenko
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.0.8-d105346"
