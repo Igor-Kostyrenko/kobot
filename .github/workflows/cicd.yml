@@ -32,7 +32,7 @@ jobs:
           #REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
           REGISTRY: ${{ vars.REGISTRY }}
           TARGETOS: ${{ vars.TARGETOS }}
-          TARGETOSARCH: ${{ vars.TARGETOSARCH }}
+          TARGETARCH: ${{ vars.TARGETARCH }}
           REPOSITORY: ${{ vars.REPOSITORY }}
         run: make image push
   cd:
