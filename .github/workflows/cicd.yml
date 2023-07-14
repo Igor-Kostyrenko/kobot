@@ -1,11 +1,16 @@
 name: KOBOT-CICD
  
-on: push
+on: 
+  push:
+    branches: [main, develop]
 
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Checkout
