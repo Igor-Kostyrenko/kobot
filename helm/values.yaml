@@ -8,7 +8,7 @@ autoscaling:
 ingress:
   enabled: false
 image:
-  repository: xevis
+  repository: "xevis"
   registry: "ghcr.io/Igor-Kostyrenko"
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
