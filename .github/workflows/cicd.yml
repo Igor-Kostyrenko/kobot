@@ -8,7 +8,7 @@ on:
 env:
   APP: kobot
   REGISTRY: ghcr.io
-  REPOSITORY: ${{ vars.DOCKERHUB_USERNAME }}
+  REPOSITORY: "xevis"
   TARGETOS: linux
   TARGETARCH: amd64
   # HELM_CHART: "0.1.3"
