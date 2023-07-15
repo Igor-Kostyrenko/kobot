@@ -20,7 +20,9 @@ jobs:
           node-version: '14'
   
       - name: Install dependencies
-        run: npm install @actions/core @actions/toolkit
+        run: |
+          npm install @actions/core@v2
+          npm install @actions/github@v4
 
       - name: Checkout
         uses: actions/checkout@v3
