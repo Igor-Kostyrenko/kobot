@@ -7,8 +7,8 @@ on:
 
 env:
   APP: kobot
-  REGISTRY: ghcr.io/${{ github.actor }}
-  REPOSITORY: "xevis"
+  REGISTRY: ghcr.io
+  REPOSITORY: ${{ github.actor }}
   TARGETOS: linux
   TARGETARCH: amd64
   # HELM_CHART: "0.1.3"
