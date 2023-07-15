@@ -10,7 +10,6 @@ env:
   TARGETOS: linux
   TARGETARCH: amd64
   REGISTRY: ghcr.io/Igor-Kostyrenko
-  REPOSITORY: ${REGISTRY}/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
 
 jobs:
   build:
@@ -59,7 +58,7 @@ jobs:
           REGISTRY: ghcr.io/${{ github.actor }}
           TARGETOS: ${{ env.TARGETOS }}
           TARGETARCH: ${{ env.TARGETARCH }}
-          REPOSITORY: ${REGISTRY}/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
+          REPOSITORY: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
         run: make image push
 
   cd:
