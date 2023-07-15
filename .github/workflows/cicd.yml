@@ -21,7 +21,7 @@ jobs:
   
       - name: Install dependencies
         run: |
-          npm install @actions/core@v2
+          npm install @actions/core@1
           npm install @actions/github@v4
 
       - name: Checkout
