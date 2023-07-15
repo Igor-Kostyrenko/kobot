@@ -12,6 +12,7 @@ env:
   TARGETOS: linux
   TARGETARCH: amd64
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,7 +28,6 @@ jobs:
       - name: Run lower-repo-name script
         run: node lower-repo-name.js
 
-jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
