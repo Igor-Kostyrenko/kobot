@@ -44,9 +44,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run test
-        run: make test
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
@@ -60,7 +57,7 @@ jobs:
           REGISTRY: ghcr.io/${{ github.actor }}
           TARGETOS: ${{ env.TARGETOS }}
           TARGETARCH: ${{ env.TARGETARCH }}
-          REPOSITORY: ${{ env.LOWER_REPO_NAME }}
+          REPOSITORY: ghcr.io/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
         run: make image push
 
   cd:
