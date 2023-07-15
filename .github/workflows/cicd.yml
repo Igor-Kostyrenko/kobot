@@ -6,10 +6,26 @@ on:
 
 env:
   APP: kobot
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   REGISTRY: ghcr.io/$GITHUB_ACTOR
   REPOSITORY: ${{ env.LOWER_REPO_NAME }}
   TARGETOS: linux
   TARGETARCH: amd64
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+  
+      - name: Install dependencies
+        run: npm install @actions/core @actions/toolkit
+  
+      - name: Run lower-repo-name script
+        run: node lower-repo-name.js
 
 jobs:
   ci:
