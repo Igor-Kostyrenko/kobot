@@ -9,7 +9,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   TARGETOS: linux
   TARGETARCH: amd64
-  REGISTRY: ghcr.io/Igor-Kostyrenko
 
 jobs:
   build:
@@ -30,7 +29,7 @@ jobs:
 
       - name: Set LOWER_REPO_NAME environment variable
         run: |
-          echo "LOWER_REPO_NAME=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "LOWER_REPO_NAME=$(echo $GITHUB_REPOSITORY | awk '{print tolower($$0)}')" >> $GITHUB_ENV
 
   ci:
     name: CI
@@ -58,7 +57,7 @@ jobs:
           REGISTRY: ghcr.io/${{ github.actor }}
           TARGETOS: ${{ env.TARGETOS }}
           TARGETARCH: ${{ env.TARGETARCH }}
-          REPOSITORY: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
+          REPOSITORY: ghcr.io/${{ github.actor }}/${{ env.LOWER_REPO_NAME }}
         run: make image push
 
   cd:
