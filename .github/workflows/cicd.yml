@@ -7,11 +7,8 @@ on:
 env:
   APP: kobot
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  REGISTRY: ghcr.io/$GITHUB_ACTOR
-  REPOSITORY: ${{ env.LOWER_REPO_NAME }}
   TARGETOS: linux
   TARGETARCH: amd64
-
 
 jobs:
   build:
@@ -24,9 +21,15 @@ jobs:
   
       - name: Install dependencies
         run: npm install @actions/core @actions/toolkit
-  
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Run lower-repo-name script
-        run: node lower-repo-name.js
+        run: |
+          echo "::set-env name=LOWER_REPO_NAME::$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')"
 
   ci:
     name: CI
@@ -54,10 +57,10 @@ jobs:
       - name: Build&Push
         env:
           APP: "kobot"
-          REGISTRY: ${{ env.REGISTRY }}
+          REGISTRY: ghcr.io/${{ github.actor }}
           TARGETOS: ${{ env.TARGETOS }}
           TARGETARCH: ${{ env.TARGETARCH }}
-          REPOSITORY: ${{ env.REPOSITORY }}
+          REPOSITORY: ${{ env.LOWER_REPO_NAME }}
         run: make image push
 
   cd:
@@ -66,18 +69,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-    - uses: mikefarah/yq@master
-      with:
-        cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
+      - uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
 
-    - run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git commit -am "update version $VERSION"
-        git push
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "update version $VERSION"
+          git push
