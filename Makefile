@@ -1,23 +1,23 @@
-APP=$(shell basename $(shell git remote get-url origin))
-# REGISTRY ?=xevis
-REPOSITORY=${REGISTRY}/${APP}
-VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-TARGETOS=linux
-#linux darwin windows
-TARGETARCH=arm64
-#amd64
+# APP=$(shell basename $(shell git remote get-url origin))
+# # REGISTRY ?=xevis
+# REPOSITORY=${REGISTRY}/${APP}
+# VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+# TARGETOS=linux
+# #linux darwin windows
+# TARGETARCH=arm64
+# #amd64
 
-format:
-	gofmt -s -w ./
+# format:
+# 	gofmt -s -w ./
 
-lint:
-	golint
+# lint:
+# 	golint
 
-test:
-	go test -v
+# test:
+# 	go test -v
 
-get:
-	go get
+# get:
+# 	go get
 
 # build: format
 # 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
@@ -47,9 +47,26 @@ get:
 # 	rm -rf kobot
 # 	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
+APP=$(shell basename $(shell git remote get-url origin))
+REPOSITORY=${REGISTRY}/$${APP}
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+TARGETOS=linux
+TARGETARCH=arm64
+
+format:
+	gofmt -s -w ./
+
+lint:
+	golint
+
+test:
+	go test -v
+
+get:
+	go get
 
 build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
 
 image:
 	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
@@ -60,3 +77,4 @@ push:
 clean:
 	rm -rf kobot
 	docker rmi ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
+
