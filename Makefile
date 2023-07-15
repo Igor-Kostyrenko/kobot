@@ -1,5 +1,6 @@
 APP=$(shell basename $(shell git remote get-url origin))
 # REGISTRY ?=xevis
+REPOSITORY=${REGISTRY}/${APP}
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux
 #linux darwin windows
