@@ -48,8 +48,8 @@
 # 	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 APP=$(shell basename $(shell git remote get-url origin))
-REPOSITORY=${REGISTRY}/$${APP}
-VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+REPOSITORY=${REGISTRY}/$$(echo ${APP} | tr '[:upper:]' '[:lower:]')
+VERSION=$(shell git describe --tags --abbrev=0)-$$(git rev-parse --short HEAD)
 TARGETOS=linux
 TARGETARCH=arm64
 
@@ -69,8 +69,7 @@ build: format
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
 
 image:
-    docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
-	
+	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
     
 push:
 	docker push ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
@@ -78,4 +77,5 @@ push:
 clean:
 	rm -rf kobot
 	docker rmi ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
+
 
