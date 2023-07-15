@@ -1,6 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
 # REGISTRY ?=xevis
-REPOSITORY=${REGISTRY}/$$(echo ${APP} | tr '[:upper:]' '[:lower:]')
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux
 #linux darwin windows
@@ -22,10 +21,6 @@ get:
 # build: format
 # 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
 
-build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
-
-
 # linux:
 # 	CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
 
@@ -38,15 +33,9 @@ build: format
 # image:
 # 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}  --no-cache
 
-image:
-	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
-    
+  
 # push:
 # 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
-
-push:
-	docker push ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
-
 
 #push:
 #	docker push gcr.io/kobot/${APP}:${VERSION}-${TARGETARCH}
@@ -56,6 +45,16 @@ push:
 # clean:
 # 	rm -rf kobot
 # 	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
+
+
+build: format
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
+
+image:
+	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
+    
+push:
+	docker push ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 clean:
 	rm -rf kobot
