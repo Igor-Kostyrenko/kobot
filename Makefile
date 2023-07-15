@@ -18,8 +18,12 @@ test:
 get:
 	go get
 
+# build: format
+# 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
+
 build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
+
 
 # linux:
 # 	CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
@@ -34,13 +38,14 @@ build: format
 # 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}  --no-cache
 
 image:
-	docker build . -t ${REGISTRY}/$$(echo ${APP} | tr '[:upper:]' '[:lower:]'):${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
+	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
     
 # push:
 # 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 push:
-	docker push ${REGISTRY}/$$(echo ${APP} | tr '[:upper:]' '[:lower:]'):${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker push ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
+
 
 #push:
 #	docker push gcr.io/kobot/${APP}:${VERSION}-${TARGETARCH}
@@ -53,4 +58,4 @@ push:
 
 clean:
 	rm -rf kobot
-	docker rmi ${REGISTRY}/$$(echo ${APP} | tr '[:upper:]' '[:lower:]'):${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker rmi ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
