@@ -20,18 +20,16 @@ jobs:
           node-version: '14'
   
       - name: Install dependencies
-        run: |
-          npm install @actions/core
-          npm install @actions/github@v4
+        run: npm install @actions/core @actions/github@v4
 
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Run lower-repo-name script
+      - name: Set LOWER_REPO_NAME environment variable
         run: |
-          echo "::set-env name=LOWER_REPO_NAME::$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')"
+          echo "LOWER_REPO_NAME=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
   ci:
     name: CI
