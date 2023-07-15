@@ -7,7 +7,7 @@ on:
 
 env:
   APP: kobot
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io/${{ github.actor }}
   REPOSITORY: ${{ github.actor }}
   TARGETOS: linux
   TARGETARCH: amd64
