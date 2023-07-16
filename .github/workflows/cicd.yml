@@ -36,7 +36,7 @@ jobs:
         env:
           APP: "kobot"
           # REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-          REGISTRY: ${{ REGISTRY }}
+          REGISTRY: ghcr.io
           # TARGETOS: ${{ vars.TARGETOS }}
           # TARGETARCH: ${{ vars.TARGETARCH }}
           # REPOSITORY: ${{ vars.REPOSITORY }}
