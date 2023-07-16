@@ -36,8 +36,7 @@ image:
 push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-#push:
-#	docker push gcr.io/kobot/${APP}:${VERSION}-${TARGETARCH}
+
 
 clean:
 	rm -rf kobot
