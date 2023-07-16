@@ -12,8 +12,8 @@ image:
   registry: "ghcr.io"
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.8-3a150ed"
-  arch: "arm64"
+  tag: "v1.0.8-d65b767"
+  arch: ""
   os: "linux"
 secret:
   name: "TELE_TOKEN"
