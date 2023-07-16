@@ -1,9 +1,9 @@
-APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY ?=xevis
+APP=$(shell basename $(shell git remote get-url origin) | tr '[:upper:]' '[:lower:]')
+REGISTRY = ghcr.io/igor-kostyrenko
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux
 #linux darwin windows
-TARGETARCH=arm64
+TARGETARCH=amd64 #arm64
 #amd64
 
 format:
@@ -41,3 +41,4 @@ push:
 clean:
 	rm -rf kobot
 	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
+
