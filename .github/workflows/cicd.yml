@@ -2,11 +2,11 @@ name: KOBOT-CICD
  
 on: push
 
-env:
-  REGISTRY: xevis
-  TARGETOS: linux
-  TARGETARCH: arm64
-  # REPOSITORY: ${{ REPOSITORY }}
+# env:
+#   REGISTRY: xevis
+#   TARGETOS: linux
+#   TARGETARCH: arm64
+#   # REPOSITORY: ${{ REPOSITORY }}
 
 jobs:
   ci:
