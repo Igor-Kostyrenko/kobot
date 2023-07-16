@@ -12,7 +12,7 @@ image:
   registry: "ghcr.io"
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.8-d65b767"
+  tag: "v1.0.8-9573323"
   arch: ""
   os: "linux"
 secret:
