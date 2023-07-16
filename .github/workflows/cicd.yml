@@ -39,7 +39,7 @@ jobs:
           APP: "kobot"
           # REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
           REGISTRY: ghcr.io
-          run: make image push
+        run: make image push
   cd:
     name: CD
     needs: ci
