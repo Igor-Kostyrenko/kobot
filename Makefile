@@ -22,7 +22,7 @@ build: format
 
 
 image:
-	docker build . -t ${REGISTRY}/${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}
 
   
 push:
