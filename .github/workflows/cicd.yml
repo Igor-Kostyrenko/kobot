@@ -4,8 +4,8 @@ on: push
 
 env:
   REGISTRY: xevis
-  TARGETOS: ${{ TARGETOS }}
-  TARGETARCH: ${{ TARGETARCH }}
+  TARGETOS: linux
+  TARGETARCH: arm64
   REPOSITORY: ${{ REPOSITORY }}
 
 jobs:
