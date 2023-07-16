@@ -43,8 +43,8 @@
 # 	docker rmi ${REGISTRY}/${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY ?= ghcr.io/Igor-Kostyrenko
-REPOSITORY= ${REGISTRY}/${APP}
+REGISTRY ?= ghcr.io
+REPOSITORY= ${REGISTRY}/${GITHUB_REPOSITORY}
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux
 TARGETARCH=amd64
@@ -62,14 +62,14 @@ get:
 	go get
 
 build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}"
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X='github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}'"
 
 image:
-	docker build . -t ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
+	docker build . -t ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
 
 push:
-	docker push ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker push ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 clean:
 	rm -rf kobot
-	docker rmi ${REPOSITORY}:${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker rmi ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
