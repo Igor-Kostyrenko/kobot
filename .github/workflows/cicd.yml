@@ -4,11 +4,6 @@ on:
   push:
     branches: [ main, develop ]
 
-# env:
-#   REGISTRY: xevis
-#   TARGETOS: linux
-#   TARGETARCH: arm64
-#   # REPOSITORY: ${{ REPOSITORY }}
 
 jobs:
   ci:
