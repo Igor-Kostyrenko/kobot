@@ -1,20 +1,11 @@
 name: KOBOT-CICD
  
-on: 
-  push:
-    branches: [main, develop]
-
-env:
-  TARGETOS: linux
-  TARGETARCH: amd64
+on: push
 
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
 
     steps:
       - name: Checkout
@@ -22,45 +13,44 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Run test
+        run:  make test
+      - name: Docker Hub login
+        uses: docker/login-action@v2
         with:
-          go-version: 1.x
-
-      - name: Run tests
-        run: make test
-
-      - name: Build and Push Docker image
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Login to GitHub Container Registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build&Push
         env:
-          APP: kobot
-          REGISTRY: ghcr.io
-          REPOSITORY: ${{ github.repository_owner }}
-        run: |
-          make build image push
-
+          APP: "kobot"
+          REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
+          # REGISTRY: ${{ vars.REGISTRY }}
+          # TARGETOS: ${{ vars.TARGETOS }}
+          # TARGETARCH: ${{ vars.TARGETARCH }}
+          # REPOSITORY: ${{ vars.REPOSITORY }}
+        run: make image push
   cd:
     name: CD
     needs: ci
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.x
-
-      - name: Set version
-        run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-      - name: Update Helm chart
-        uses: azure/setup-helm@v1
-        with:
-          version: v3.6.0
-
-      - name: Update Helm chart version
-        run: helm chart save helm kobot
+    - uses: mikefarah/yq@master
+      with:
+        cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
+    - run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git commit -am "update version $VERSION"
+        git push
