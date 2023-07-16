@@ -1,6 +1,5 @@
 name: KOBOT-CICD
  
-# on: push
 on:
   push:
     branches: [ main, develop ]
