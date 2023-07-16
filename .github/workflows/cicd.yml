@@ -3,7 +3,7 @@ name: KOBOT-CICD
 on: push
 
 env:
-  REGISTRY: ${{ REGISTRY }}
+  REGISTRY: xevis
   TARGETOS: ${{ TARGETOS }}
   TARGETARCH: ${{ TARGETARCH }}
   REPOSITORY: ${{ REPOSITORY }}
