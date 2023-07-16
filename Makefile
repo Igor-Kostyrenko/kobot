@@ -18,13 +18,13 @@ get:
 	go get
 
 build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
-
-
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X=github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}" --tags "${VERSION}-${TARGETOS}-${TARGETARCH}"
+    # CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kobot -ldflags "-X="github.com/Igor-Kostyrenko/kobot/cmd.appVersion=${VERSION}
+	
 image:
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
     # docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}
-	
+
 push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
     # docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
