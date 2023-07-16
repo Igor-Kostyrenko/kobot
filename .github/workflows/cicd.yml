@@ -6,7 +6,7 @@ env:
   REGISTRY: xevis
   TARGETOS: linux
   TARGETARCH: arm64
-  REPOSITORY: ${{ REPOSITORY }}
+  # REPOSITORY: ${{ REPOSITORY }}
 
 jobs:
   ci:
