@@ -22,13 +22,11 @@ build: format
 
 
 image:
-	# docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}
-    docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
-  
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH} --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH} --no-cache
+    # docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}  --build-arg TARGETOS=${TARGETOS} --build-arg TARGETARCH=${TARGETARCH}
 push:
-	# docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
-    docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
-
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+    # docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 clean:
 	rm -rf kobot
 	docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
