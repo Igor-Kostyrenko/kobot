@@ -1,9 +1,10 @@
 name: KOBOT-CICD
  
-on: push:
-        branches:
-          - "develop"
-
+# on: push
+on:
+  push:
+    branches: [ main, develop ]
+        
 jobs:
   ci:
     name: CI
