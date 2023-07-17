@@ -13,8 +13,8 @@ image:
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
-  tag: "v1.0.8-bb2095c"
-  arch: arm64
+  tag: "v1.0.8-6f6d1d1"
+  arch: ""
   os: "linux"
 secret:
   name: "TELE_TOKEN"
