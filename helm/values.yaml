@@ -9,7 +9,7 @@ ingress:
   enabled: false
 image:
   repository: "${{ Igor-Kostyrenko | lower }}"
-  registry: "ghcr.io"
+  registry: ghcr.io
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
