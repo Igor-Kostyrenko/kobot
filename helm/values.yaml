@@ -14,7 +14,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
 
   tag: "v1.0.8-9082783"
-  arch: ""
+  arch: arm64
   os: linux
 secret:
   name: "TELE_TOKEN"
