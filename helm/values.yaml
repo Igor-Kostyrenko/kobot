@@ -9,13 +9,13 @@ ingress:
   enabled: false
 image:
   repository: "${{ Igor-Kostyrenko | lower }}"
-  registry: ghcr.io
+  registry: ""
   # pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
-  tag: "v1.0.8-5539ddb"
+  tag: "v1.0.8-1c75f58"
   arch: ""
-  os: linux
+  os: ""
 secret:
   name: "TELE_TOKEN"
   tokenKey: "token"
